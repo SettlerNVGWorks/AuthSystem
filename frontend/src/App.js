@@ -3,6 +3,7 @@ import './App.css';
 import crownImage from './source_pics/main-pic.jpg';
 import logoVideo from './source_pics/main-vid.mp4';
 import onewin_logo from './source_pics/1win-mid-1280x720-1.png';
+import { authAPI, sportsAPI } from './services/api';
 
 function App() {
   const [showServices, setShowServices] = useState(false);
@@ -18,6 +19,20 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [authMode, setAuthMode] = useState('login'); // 'login', 'register', 'profile', 'changePassword'
+  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [authSuccess, setAuthSuccess] = useState('');
+
+  // Form states
+  const [formData, setFormData] = useState({
+    telegram_tag: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    currentPassword: '',
+    newPassword: '',
+    confirmNewPassword: ''
+  });
 
   const [stats, setStats] = useState({
     totalPredictions: 1247,
