@@ -312,15 +312,6 @@ function App() {
               <button
                 onClick={() => {
                   setMenuOpen(false);
-                  setShowAccount(true);
-                }}
-                className="block w-full text-left text-blue-300 hover:text-blue-100 font-semibold border-t border-blue-100 py-3 px-2 hover:bg-blue-900/20 transition"
-              >
-                👤 Аккаунт
-              </button>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
                   setShowServices(true);
                 }}
                 className="block w-full text-left text-blue-300 hover:text-blue-100 font-semibold border-t border-blue-100 py-3 px-2 hover:bg-blue-900/20 transition"
