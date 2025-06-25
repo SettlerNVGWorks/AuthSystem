@@ -727,75 +727,122 @@ function App() {
                   </button>
                 </div>
 
+                {/* Display messages */}
+                {authError && (
+                  <div className="mb-4 p-3 bg-red-600/20 border border-red-500 rounded-lg text-red-300 text-sm">
+                    {authError}
+                  </div>
+                )}
+                
+                {authSuccess && (
+                  <div className="mb-4 p-3 bg-green-600/20 border border-green-500 rounded-lg text-green-300 text-sm">
+                    {authSuccess}
+                  </div>
+                )}
+
                 {authMode === 'login' ? (
                   <div>
                     <h2 className="text-2xl font-bold mb-4 text-center">Вход в систему</h2>
-                    <form className="space-y-4">
+                    <form onSubmit={handleLogin} className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">Имя пользователя</label>
                         <input
                           type="text"
+                          name="username"
+                          value={formData.username}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="Введите имя пользователя"
+                          required
+                          disabled={authLoading}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">Пароль</label>
                         <input
                           type="password"
+                          name="password"
+                          value={formData.password}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="Введите пароль"
+                          required
+                          disabled={authLoading}
                         />
                       </div>
                       <button
                         type="submit"
-                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition"
+                        disabled={authLoading}
+                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Войти
+                        {authLoading ? 'Вход...' : 'Войти'}
                       </button>
                     </form>
                   </div>
                 ) : (
                   <div>
                     <h2 className="text-2xl font-bold mb-4 text-center">Регистрация</h2>
-                    <form className="space-y-4">
+                    <form onSubmit={handleRegister} className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">Telegram тег</label>
                         <input
                           type="text"
+                          name="telegram_tag"
+                          value={formData.telegram_tag}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="@username"
+                          required
+                          disabled={authLoading}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">Имя пользователя</label>
                         <input
                           type="text"
+                          name="username"
+                          value={formData.username}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="Введите имя пользователя"
+                          required
+                          disabled={authLoading}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">Пароль</label>
                         <input
                           type="password"
+                          name="password"
+                          value={formData.password}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
-                          placeholder="Введите пароль"
+                          placeholder="Введите пароль (минимум 6 символов)"
+                          required
+                          disabled={authLoading}
+                          minLength="6"
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">Подтвердите пароль</label>
                         <input
                           type="password"
+                          name="confirmPassword"
+                          value={formData.confirmPassword}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="Повторите пароль"
+                          required
+                          disabled={authLoading}
+                          minLength="6"
                         />
                       </div>
                       <button
                         type="submit"
-                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition"
+                        disabled={authLoading}
+                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Зарегистрироваться
+                        {authLoading ? 'Регистрация...' : 'Зарегистрироваться'}
                       </button>
                     </form>
                   </div>
@@ -827,29 +874,40 @@ function App() {
                   </button>
                 </div>
 
+                {/* Display messages */}
+                {authError && (
+                  <div className="mb-4 p-3 bg-red-600/20 border border-red-500 rounded-lg text-red-300 text-sm">
+                    {authError}
+                  </div>
+                )}
+                
+                {authSuccess && (
+                  <div className="mb-4 p-3 bg-green-600/20 border border-green-500 rounded-lg text-green-300 text-sm">
+                    {authSuccess}
+                  </div>
+                )}
+
                 {authMode === 'profile' ? (
                   <div>
                     <h2 className="text-2xl font-bold mb-4 text-center">Мой профиль</h2>
                     <div className="bg-[#142b45] rounded-lg p-4 space-y-3">
                       <div className="flex justify-between">
                         <span className="text-gray-300">Telegram:</span>
-                        <span className="text-yellow-400">@example_user</span>
+                        <span className="text-yellow-400">{currentUser?.telegram_tag || 'Не указан'}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-300">Пользователь:</span>
-                        <span className="text-yellow-400">example_user</span>
+                        <span className="text-yellow-400">{currentUser?.username || 'Не указан'}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-300">Дата регистрации:</span>
-                        <span className="text-yellow-400">15.03.2025</span>
+                        <span className="text-yellow-400">
+                          {currentUser?.registration_date ? formatDate(currentUser.registration_date) : 'Не указана'}
+                        </span>
                       </div>
                     </div>
                     <button
-                      onClick={() => {
-                        setIsLoggedIn(false);
-                        setCurrentUser(null);
-                        setShowAccount(false);
-                      }}
+                      onClick={handleLogout}
                       className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition"
                     >
                       Выйти
@@ -858,36 +916,54 @@ function App() {
                 ) : (
                   <div>
                     <h2 className="text-2xl font-bold mb-4 text-center">Смена пароля</h2>
-                    <form className="space-y-4">
+                    <form onSubmit={handleChangePassword} className="space-y-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">Текущий пароль</label>
                         <input
                           type="password"
+                          name="currentPassword"
+                          value={formData.currentPassword}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="Введите текущий пароль"
+                          required
+                          disabled={authLoading}
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">Новый пароль</label>
                         <input
                           type="password"
+                          name="newPassword"
+                          value={formData.newPassword}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
-                          placeholder="Введите новый пароль"
+                          placeholder="Введите новый пароль (минимум 6 символов)"
+                          required
+                          disabled={authLoading}
+                          minLength="6"
                         />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-2">Подтвердите новый пароль</label>
                         <input
                           type="password"
+                          name="confirmNewPassword"
+                          value={formData.confirmNewPassword}
+                          onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
                           placeholder="Повторите новый пароль"
+                          required
+                          disabled={authLoading}
+                          minLength="6"
                         />
                       </div>
                       <button
                         type="submit"
-                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition"
+                        disabled={authLoading}
+                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        Изменить пароль
+                        {authLoading ? 'Изменение...' : 'Изменить пароль'}
                       </button>
                     </form>
                   </div>
@@ -896,7 +972,11 @@ function App() {
             )}
             
             <button
-              onClick={() => setShowAccount(false)}
+              onClick={() => {
+                setShowAccount(false);
+                setAuthError('');
+                setAuthSuccess('');
+              }}
               className="absolute top-3 right-3 text-gray-400 hover:text-white text-xl"
               aria-label="Закрыть окно аккаунта"
             >
