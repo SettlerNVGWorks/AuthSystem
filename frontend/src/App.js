@@ -486,13 +486,212 @@ function App() {
       )}
 
 
-      {/* Модальное окно: Аккаунт */}
+      {/* Модальное окно: Аккаунт/Аутентификация */}
       {showAccount && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 px-4">
-          <div className="bg-[#0a1b2a] text-white rounded-xl shadow-2xl max-w-lg w-full p-6 relative border border-yellow-500">
-            <h2 className="text-2xl font-bold mb-4">Аккаунт</h2>
-            <p className="text-sm text-gray-300">Авторизация будет доступна в следующих обновлениях. Следите за новостями!</p>
-            <button onClick={() => setShowAccount(false)} className="absolute top-3 right-3 text-gray-400 hover:text-white text-xl">✖</button>
+          <div className="bg-[#0a1b2a] text-white rounded-xl shadow-2xl max-w-lg w-full p-6 relative border border-yellow-500 max-h-[80vh] overflow-y-auto">
+            
+            {!isLoggedIn ? (
+              // Форма входа/регистрации
+              <div>
+                <div className="flex justify-center mb-6">
+                  <button
+                    onClick={() => setAuthMode('login')}
+                    className={`px-4 py-2 mr-2 rounded-lg font-semibold transition ${
+                      authMode === 'login' 
+                        ? 'bg-yellow-500 text-[#0a1b2a]' 
+                        : 'bg-transparent text-yellow-500 border border-yellow-500'
+                    }`}
+                  >
+                    Вход
+                  </button>
+                  <button
+                    onClick={() => setAuthMode('register')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition ${
+                      authMode === 'register' 
+                        ? 'bg-yellow-500 text-[#0a1b2a]' 
+                        : 'bg-transparent text-yellow-500 border border-yellow-500'
+                    }`}
+                  >
+                    Регистрация
+                  </button>
+                </div>
+
+                {authMode === 'login' ? (
+                  <div>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Вход в систему</h2>
+                    <form className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Имя пользователя</label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Введите имя пользователя"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Пароль</label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Введите пароль"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition"
+                      >
+                        Войти
+                      </button>
+                    </form>
+                  </div>
+                ) : (
+                  <div>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Регистрация</h2>
+                    <form className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Telegram тег</label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="@username"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Имя пользователя</label>
+                        <input
+                          type="text"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Введите имя пользователя"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Пароль</label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Введите пароль"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Подтвердите пароль</label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Повторите пароль"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition"
+                      >
+                        Зарегистрироваться
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Профиль пользователя
+              <div>
+                <div className="flex justify-center mb-6">
+                  <button
+                    onClick={() => setAuthMode('profile')}
+                    className={`px-4 py-2 mr-2 rounded-lg font-semibold transition ${
+                      authMode === 'profile' 
+                        ? 'bg-yellow-500 text-[#0a1b2a]' 
+                        : 'bg-transparent text-yellow-500 border border-yellow-500'
+                    }`}
+                  >
+                    Профиль
+                  </button>
+                  <button
+                    onClick={() => setAuthMode('changePassword')}
+                    className={`px-4 py-2 rounded-lg font-semibold transition ${
+                      authMode === 'changePassword' 
+                        ? 'bg-yellow-500 text-[#0a1b2a]' 
+                        : 'bg-transparent text-yellow-500 border border-yellow-500'
+                    }`}
+                  >
+                    Смена пароля
+                  </button>
+                </div>
+
+                {authMode === 'profile' ? (
+                  <div>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Мой профиль</h2>
+                    <div className="bg-[#142b45] rounded-lg p-4 space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-gray-300">Telegram:</span>
+                        <span className="text-yellow-400">@example_user</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-300">Пользователь:</span>
+                        <span className="text-yellow-400">example_user</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-300">Дата регистрации:</span>
+                        <span className="text-yellow-400">15.03.2025</span>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => {
+                        setIsLoggedIn(false);
+                        setCurrentUser(null);
+                        setShowAccount(false);
+                      }}
+                      className="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition"
+                    >
+                      Выйти
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <h2 className="text-2xl font-bold mb-4 text-center">Смена пароля</h2>
+                    <form className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Текущий пароль</label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Введите текущий пароль"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Новый пароль</label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Введите новый пароль"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Подтвердите новый пароль</label>
+                        <input
+                          type="password"
+                          className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
+                          placeholder="Повторите новый пароль"
+                        />
+                      </div>
+                      <button
+                        type="submit"
+                        className="w-full bg-yellow-500 hover:bg-yellow-600 text-[#0a1b2a] font-bold py-2 px-4 rounded-lg transition"
+                      >
+                        Изменить пароль
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            <button
+              onClick={() => setShowAccount(false)}
+              className="absolute top-3 right-3 text-gray-400 hover:text-white text-xl"
+              aria-label="Закрыть окно аккаунта"
+            >
+              ✖
+            </button>
           </div>
         </div>
       )}
