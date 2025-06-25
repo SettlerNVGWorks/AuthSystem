@@ -14,6 +14,11 @@ function App() {
   const [showContact, setShowContact] = useState(false);
   const [showBot, setShowBot] = useState(false);
 
+  // Authentication states
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [authMode, setAuthMode] = useState('login'); // 'login', 'register', 'profile', 'changePassword'
+
   const [stats, setStats] = useState({
     totalPredictions: 1247,
     successRate: 78.5,
