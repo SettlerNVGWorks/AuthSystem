@@ -41,6 +41,201 @@ function App() {
     monthlyWins: 342
   });
 
+  // Check for existing token on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    const userData = localStorage.getItem('userData');
+    
+    if (token && userData) {
+      try {
+        const user = JSON.parse(userData);
+        setCurrentUser(user);
+        setIsLoggedIn(true);
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userData');
+      }
+    }
+
+    // Load stats from backend
+    loadStats();
+  }, []);
+
+  // Load statistics from backend
+  const loadStats = async () => {
+    try {
+      const response = await sportsAPI.getStats();
+      const data = response.data;
+      setStats({
+        totalPredictions: data.total_predictions,
+        successRate: data.success_rate,
+        activeBettors: data.active_bettors,
+        monthlyWins: data.monthly_wins
+      });
+    } catch (error) {
+      console.error('Error loading stats:', error);
+      // Keep default values if API fails
+    }
+  };
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    // Clear errors when user types
+    if (authError) setAuthError('');
+    if (authSuccess) setAuthSuccess('');
+  };
+
+  // Handle registration
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthError('');
+    setAuthSuccess('');
+
+    try {
+      const response = await authAPI.register({
+        telegram_tag: formData.telegram_tag,
+        username: formData.username,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword
+      });
+
+      const { token, user } = response.data;
+      
+      // Save token and user data
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userData', JSON.stringify(user));
+      
+      setCurrentUser(user);
+      setIsLoggedIn(true);
+      setAuthMode('profile');
+      setAuthSuccess('Регистрация прошла успешно!');
+      
+      // Clear form
+      setFormData({
+        telegram_tag: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      });
+    } catch (error) {
+      const errorMessage = error.response?.data?.error || 'Ошибка регистрации';
+      setAuthError(errorMessage);
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  // Handle login
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthError('');
+    setAuthSuccess('');
+
+    try {
+      const response = await authAPI.login({
+        username: formData.username,
+        password: formData.password
+      });
+
+      const { token, user } = response.data;
+      
+      // Save token and user data
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userData', JSON.stringify(user));
+      
+      setCurrentUser(user);
+      setIsLoggedIn(true);
+      setAuthMode('profile');
+      setAuthSuccess('Вход выполнен успешно!');
+      
+      // Clear form
+      setFormData({
+        telegram_tag: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      });
+    } catch (error) {
+      const errorMessage = error.response?.data?.error || 'Ошибка входа';
+      setAuthError(errorMessage);
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  // Handle password change
+  const handleChangePassword = async (e) => {
+    e.preventDefault();
+    setAuthLoading(true);
+    setAuthError('');
+    setAuthSuccess('');
+
+    try {
+      await authAPI.changePassword({
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+        confirmNewPassword: formData.confirmNewPassword
+      });
+
+      setAuthSuccess('Пароль успешно изменен!');
+      
+      // Clear form
+      setFormData({
+        ...formData,
+        currentPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+      });
+    } catch (error) {
+      const errorMessage = error.response?.data?.error || 'Ошибка смены пароля';
+      setAuthError(errorMessage);
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await authAPI.logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Clear local storage and state
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userData');
+      setCurrentUser(null);
+      setIsLoggedIn(false);
+      setAuthMode('login');
+      setShowAccount(false);
+      setAuthError('');
+      setAuthSuccess('');
+    }
+  };
+
+  // Format date for display
+  const formatDate = (dateString) => {
+    try {
+      return new Date(dateString).toLocaleDateString('ru-RU');
+    } catch (error) {
+      return dateString;
+    }
+  };
+
   const sports = [
     {
       name: 'Бейсбол',
