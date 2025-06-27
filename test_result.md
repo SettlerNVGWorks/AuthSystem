@@ -152,7 +152,7 @@ backend:
     file: "routes/auth.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
@@ -163,6 +163,9 @@ backend:
       - working: "NA"
         agent: "main"
         comment: "Updated login endpoint to accept telegram_tag instead of username"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: All authentication endpoints working correctly. Login with telegram_tag (both with and without @ prefix) works. Registration, profile, password change, and logout all functioning as expected."
         
   - task: "Sports API routes migration (stats, predictions)"
     implemented: true
