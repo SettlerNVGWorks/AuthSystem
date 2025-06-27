@@ -200,11 +200,11 @@ backend:
 frontend:
   - task: "Move account button next to hamburger button"
     implemented: true
-    working: "NA"
+    working: true
     file: "src/App.js"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
@@ -212,14 +212,17 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Updated account button to show username or 'Войти' text based on login status"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Account button correctly shows 'Войти' when not logged in and would show username when logged in"
         
   - task: "Create authentication modal with login/register forms"
     implemented: true
-    working: "NA"
+    working: true
     file: "src/App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
@@ -227,54 +230,69 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Updated login form to use telegram_tag instead of username"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Login form now uses 'Telegram тег' field instead of 'Имя пользователя' with proper Russian text and placeholders"
         
   - task: "API service layer for backend communication"
     implemented: true
-    working: "NA"
+    working: true
     file: "src/services/api.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Created axios-based API service with token management and error handling"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: API service layer working correctly with updated authentication endpoints"
         
   - task: "Authentication state management and form handling"
     implemented: true
-    working: "NA"
+    working: true
     file: "src/App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added auth state, form handlers, token persistence, error/success messaging"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Authentication state management working correctly with telegram_tag login"
         
   - task: "Add blinking info button for telegram tag in registration"
     implemented: true
-    working: "NA"
+    working: true
     file: "src/App.js"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added animated info button with tooltip explaining telegram tag and where to find it"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Blue blinking info button with 'ℹ' symbol is present and functional with tooltip explanation"
         
   - task: "Update registration form with telegram tag emphasis"
     implemented: true
-    working: "NA"
+    working: true
     file: "src/App.js"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Added warning text and examples emphasizing valid telegram tag requirement"
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Yellow warning text 'Указывайте валидный Telegram тег!' is visible with proper examples and helper text"
 
 metadata:
   created_by: "main_agent"
