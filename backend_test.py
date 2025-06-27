@@ -330,6 +330,7 @@ def main():
     print("\n=== Testing Authentication Flow ===")
     registration_test = tester.test_user_registration()
     login_test = tester.test_user_login()
+    login_without_at_test = tester.test_user_login_without_at_symbol()
     profile_test = tester.test_user_profile()
     password_change_test = tester.test_change_password()
     logout_test = tester.test_logout()
