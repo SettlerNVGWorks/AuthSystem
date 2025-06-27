@@ -302,3 +302,5 @@ agent_communication:
     message: "✅ BACKEND TESTING COMPLETE: All Node.js backend functionality tested and working. Authentication system fully functional. Ready for frontend testing."
   - agent: "main"
     message: "🔄 IMPLEMENTING NEW REQUIREMENTS: Updated account button to show username/'Войти', changed login to use telegram_tag, added blinking info button for telegram tag in registration, updated backend login endpoint. Ready for testing."
+  - agent: "testing"
+    message: "✅ AUTHENTICATION TESTING COMPLETE: Successfully tested all authentication endpoints with the updated telegram_tag functionality. Login works with both formats (with and without @ prefix). Registration, profile, password change, and logout all functioning correctly. The backend properly cleans telegram tags by adding @ if missing."
