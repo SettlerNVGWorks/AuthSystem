@@ -285,6 +285,9 @@ test_plan:
     - "Create authentication modal with login/register forms"
     - "API service layer for backend communication"
     - "Authentication state management and form handling"
+    - "Add blinking info button for telegram tag in registration"
+    - "Update registration form with telegram tag emphasis"
+    - "Authentication routes (register, login, logout, profile, change password)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
