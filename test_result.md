@@ -110,6 +110,11 @@ user_problem_statement: |
   4. Add authentication system (register/login/logout/change password/profile view)
   5. Use PostgreSQL to store users with fields: telegram_tag, username, password, registration_date
 
+  NEW REQUIREMENTS (Current):
+  1. Add display of username or "войти" (login) text next to the account button
+  2. Make an info button that blinks on the registration window near telegram tag field to explain what a telegram tag is and where to get it
+  3. Change login to use telegram tag and password instead of username and password, and specify this during registration that they should enter a valid telegram tag
+
 backend:
   - task: "Node.js server setup with Express"
     implemented: true
