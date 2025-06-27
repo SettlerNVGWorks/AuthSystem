@@ -144,7 +144,7 @@ function App() {
 
     try {
       const response = await authAPI.login({
-        username: formData.username,
+        telegram_tag: formData.telegram_tag,
         password: formData.password
       });
 
