@@ -158,18 +158,18 @@ class SportPredictionsAPITester:
         return success
 
     def test_user_login(self):
-        """Test user login"""
+        """Test user login with telegram_tag"""
         if not self.user_data:
             print("⚠️ No registered user to test login with")
             return False
         
         login_data = {
-            "username": self.user_data.get('username'),
+            "telegram_tag": self.user_data.get('telegram_tag'),
             "password": "Test123!"
         }
         
         success, response = self.run_test(
-            "User Login",
+            "User Login with Telegram Tag",
             "POST",
             "api/auth/login",
             200,
@@ -179,6 +179,39 @@ class SportPredictionsAPITester:
         if success:
             self.token = response.get('token')
             print(f"Login Successful for: {response.get('user', {}).get('username')}")
+            print(f"Using Telegram Tag: {response.get('user', {}).get('telegram_tag')}")
+        
+        return success
+        
+    def test_user_login_without_at_symbol(self):
+        """Test user login with telegram_tag without @ symbol"""
+        if not self.user_data:
+            print("⚠️ No registered user to test login with")
+            return False
+        
+        # Remove @ from telegram_tag if it exists
+        telegram_tag = self.user_data.get('telegram_tag', '')
+        if telegram_tag.startswith('@'):
+            telegram_tag = telegram_tag[1:]
+        
+        login_data = {
+            "telegram_tag": telegram_tag,
+            "password": "Test123!"
+        }
+        
+        success, response = self.run_test(
+            "User Login with Telegram Tag (without @ symbol)",
+            "POST",
+            "api/auth/login",
+            200,
+            data=login_data
+        )
+        
+        if success:
+            self.token = response.get('token')
+            print(f"Login Successful for: {response.get('user', {}).get('username')}")
+            print(f"Using Telegram Tag without @: {telegram_tag}")
+            print(f"Server returned Telegram Tag: {response.get('user', {}).get('telegram_tag')}")
         
         return success
 
