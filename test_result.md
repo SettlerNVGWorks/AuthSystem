@@ -203,6 +203,9 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Added account icon button next to hamburger, removed from hamburger menu"
+      - working: "NA"
+        agent: "main"
+        comment: "Updated account button to show username or 'Войти' text based on login status"
         
   - task: "Create authentication modal with login/register forms"
     implemented: true
@@ -215,6 +218,9 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Created comprehensive auth modal with login/register/profile/change password views"
+      - working: "NA"
+        agent: "main"
+        comment: "Updated login form to use telegram_tag instead of username"
         
   - task: "API service layer for backend communication"
     implemented: true
@@ -239,6 +245,30 @@ frontend:
       - working: "NA"
         agent: "main"
         comment: "Added auth state, form handlers, token persistence, error/success messaging"
+        
+  - task: "Add blinking info button for telegram tag in registration"
+    implemented: true
+    working: "NA"
+    file: "src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added animated info button with tooltip explaining telegram tag and where to find it"
+        
+  - task: "Update registration form with telegram tag emphasis"
+    implemented: true
+    working: "NA"
+    file: "src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Added warning text and examples emphasizing valid telegram tag requirement"
 
 metadata:
   created_by: "main_agent"
