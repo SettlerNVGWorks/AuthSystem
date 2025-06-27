@@ -746,16 +746,19 @@ function App() {
                 {authMode === 'login' ? (
                   <div>
                     <h2 className="text-2xl font-bold mb-4 text-center">Вход в систему</h2>
+                    <p className="text-sm text-gray-300 mb-4 text-center">
+                      Используйте свой Telegram тег и пароль для входа
+                    </p>
                     <form onSubmit={handleLogin} className="space-y-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2">Имя пользователя</label>
+                        <label className="block text-sm font-medium mb-2">Telegram тег</label>
                         <input
                           type="text"
-                          name="username"
-                          value={formData.username}
+                          name="telegram_tag"
+                          value={formData.telegram_tag}
                           onChange={handleInputChange}
                           className="w-full px-3 py-2 bg-[#142b45] border border-yellow-400 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-yellow-300"
-                          placeholder="Введите имя пользователя"
+                          placeholder="@username"
                           required
                           disabled={authLoading}
                         />
