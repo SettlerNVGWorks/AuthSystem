@@ -262,7 +262,7 @@ class SportPredictionsAPITester:
             
             # Test login with new password
             login_data = {
-                "username": self.user_data.get('username'),
+                "telegram_tag": self.user_data.get('telegram_tag'),
                 "password": "NewTest456!"
             }
             
