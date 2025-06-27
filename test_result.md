@@ -152,7 +152,7 @@ backend:
     file: "routes/auth.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
       - working: "NA"
         agent: "main"
@@ -160,6 +160,9 @@ backend:
       - working: true
         agent: "main"
         comment: "✅ TESTED: Registration & login working. JWT tokens generated. Profile endpoint accessible with token."
+      - working: "NA"
+        agent: "main"
+        comment: "Updated login endpoint to accept telegram_tag instead of username"
         
   - task: "Sports API routes migration (stats, predictions)"
     implemented: true
