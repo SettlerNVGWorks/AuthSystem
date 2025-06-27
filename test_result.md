@@ -297,3 +297,5 @@ agent_communication:
     message: "Completed major rewrite from FastAPI to Node.js with full authentication system. Need to test PostgreSQL connection, authentication flows, and frontend integration. Backend needs PostgreSQL running locally before testing."
   - agent: "main"
     message: "✅ BACKEND TESTING COMPLETE: All Node.js backend functionality tested and working. Authentication system fully functional. Ready for frontend testing."
+  - agent: "main"
+    message: "🔄 IMPLEMENTING NEW REQUIREMENTS: Updated account button to show username/'Войти', changed login to use telegram_tag, added blinking info button for telegram tag in registration, updated backend login endpoint. Ready for testing."
